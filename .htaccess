@@ -1,0 +1,8 @@
+# AddHandler application/x-httpd-phpcgi .php
+# mod_gzip_on Off
+
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /creditcard/search/index.php?/$1 [L]
