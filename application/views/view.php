@@ -58,8 +58,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </th>
             <th>
                 国際ブランド
-                <a href="<?php echo base_url('view').'?brand=asc'; ?>" ><span class="glyphicon glyphicon-sort-by-attributes <?php if ($sortparam === 'brand=asc') : echo 'text-danger'; endif;?>"></span></a>
-                <a href="<?php echo base_url('view').'?brand=desc'; ?>" ><span class="glyphicon glyphicon-sort-by-attributes-alt <?php if ($sortparam === 'brand=desc') : echo 'text-danger'; endif;?>"></span></a>
+                <a href="<?php echo base_url('view').'?brand=desc'; ?>" ><span class="glyphicon glyphicon-sort-by-attributes <?php if ($sortparam === 'brand=desc') : echo 'text-danger'; endif;?>"></span></a>
+                <a href="<?php echo base_url('view').'?brand=asc'; ?>" ><span class="glyphicon glyphicon-sort-by-attributes-alt <?php if ($sortparam === 'brand=asc') : echo 'text-danger'; endif;?>"></span></a>
             </th>
             <th>
                 ポイント還元率
@@ -75,11 +75,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php foreach($items as $item): ?>
         <tr>
             <td>
-                <?php if ( ! empty($item['pageurl'])) : ?>
-                    <a href="<?php echo $item['pageurl']; ?>">
+                <?php if ( ! empty($item['officialurl'])) : ?>
+                    <a href="<?php echo $item['officialurl']; ?>">
                 <?php endif; ?>
                 <?php if ( ! empty($item['picurl'])) : ?>
-                    <img src="<?php echo $item['picurl']; ?>" alt="<?php echo $item['name']; ?>" width="130">
+                    <img src="<?php echo $item['picurl']; ?>" alt="<?php echo $item['name']; ?>" width="130"><br>
+                    <?php echo $item['name']; ?>
                 <?php else : ?>
                     <?php echo $item['name']; ?>
                 <?php endif; ?>
@@ -96,12 +97,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <td><?php foreach($item['electronic_money_values'] as $pv) : echo $pv['param_name'] . "<br>"; endforeach; ?></td>
             <td>
                 <?php if ( ! empty($item['pageurl'])) : ?>
-                    <a href="<?php echo $item['pageurl']; ?>" class="btn btn-danger btn-lg">サイトをみる</a>
+                    <a href="<?php echo $item['pageurl']; ?>" class="btn btn-danger btn-lg">詳細を見る</a>
+                <?php endif; ?>
+                <?php if ( ! empty($item['officialurl'])) : ?>
+                    <a href="<?php echo $item['officialurl']; ?>" class="btn btn-danger btn-lg">公式サイトを見る</a>
                 <?php endif; ?>
             </td>
         </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
-
 </div>

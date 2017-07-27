@@ -9,6 +9,9 @@ class View extends CI_Controller {
 
     public $data = array();
 
+    private $params;
+    private $extend_params;
+
     public function __construct()
     {
         parent::__construct();
@@ -18,11 +21,13 @@ class View extends CI_Controller {
 
         $this->data['title'] = 'クレジットカード';
         $this->data['nav'] = 'top';
+
+        $this->params =  $this->Item_model->param_tree();
+        $this->extend_params = $this->Item_model->extend_params();
     }
     
     public function index()
     {
-        $data = array('result'=>NULL);
 
         // 最初は全てのデータを表示する
         $param = NULL;
@@ -31,39 +36,68 @@ class View extends CI_Controller {
         {
             foreach ($this->session->filter as $key => $val)
             {
-                $param[] = '`'.$key.'` & '.$val.' != 0';
+                if ( array_key_exists($key, $this->extend_params) )
+                {
+                    if ( isset($this->extend_params[$key][$val]) )
+                    {
+                        $param[] = '`'.$key.'` & '.$this->extend_params[$key][$val].' != 0';
+                    }
+                    else
+                    {
+                        $param[] = '`'.$key.'` & '.$val.' != 0';
+                    }
+
+                }
+                else
+                {
+                    $param[] = '`'.$key.'` & '.$val.' != 0';
+                }
             }
         }
+
+        $items = $this->Item_model->view($param);
 
         // 並べ替え
         $sortcols = array('annual_due','examination','brand','pt_reduction_rate');
         $sortparam = "";
+
         foreach ($sortcols as $col)
         {
             if (isset($_GET[$col]))
             {
+                $sortarray = array();
+                foreach ( (array) $items as $key => $val)
+                {
+                    $colvalues = $val[$col.'_values'];
+                    if (isset($colvalues[0]))
+                    {
+                        $sortarray[$key] = $colvalues[0];
+                    }
+                    else
+                    {
+                        $sortarray[$key] = "";
+                    }
+                }
                 switch (strtolower($_GET[$col]))
                 {
                     case 'desc' :
-                        $sort .= $col.' DESC,';
+                        array_multisort($sortarray, SORT_DESC, $items);
                         $sortparam = $col.'=desc';
                         break;
                     case 'asc' :
                     default :
-                        $sort .= $col.' ASC,';
+                        array_multisort($sortarray, SORT_ASC, $items);
                         $sortparam = $col.'=asc';
                         break;
                 }
-
             }
         }
-        $sort .= 'sort ASC';
 
 
-        $items = $this->Item_model->view($param, $sort);
 
         // パラメータ
-        $this->data['params'] = $this->Item_model->param_tree();
+        $this->data['params'] = $this->params;
+        $this->data['extend_params'] = $this->extend_params;
         $this->data['items'] = $items;
         $this->data['sortparam'] = $sortparam;
 

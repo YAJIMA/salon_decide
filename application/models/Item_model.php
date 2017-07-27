@@ -107,6 +107,7 @@ class Item_model extends CI_Model {
                 'group_name' => $row['group_name'],
                 'param_name' => $row['param_name'],
                 'cols' => $row['cols'],
+                'extcols' => $row['extcols'],
             );
         }
 
@@ -128,6 +129,24 @@ class Item_model extends CI_Model {
         {
             // SELECT * FROM `params` WHERE `cols` & 5 != 0 AND `field_name` = 'brand'
             $results[] = $row;
+        }
+
+        return $results;
+    }
+
+    public function extend_params()
+    {
+        $results = array();
+
+        $this->db->select('*');
+        $this->db->from('params');
+        $this->db->where('`cols` <> `extcols`', NULL, FALSE);
+
+        $query = $this->db->get();
+
+        foreach ($query->result_array() as $row)
+        {
+            $results[$row['field_name']][$row['cols']] = $row['extcols'];
         }
 
         return $results;
