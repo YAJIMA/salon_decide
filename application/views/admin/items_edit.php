@@ -17,6 +17,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </td>
                 </tr>
                 <tr>
+                    <th class="text-right">アフィリンクURL</th>
+                    <td class="text-left">
+                        <input type="text" class="form-control" placeholder="http://link.to.card/page" name="officialurl" value="<?php echo $item['officialurl'];?>">
+                    </td>
+                </tr>
+                <tr>
                     <th class="text-right">リンク先URL</th>
                     <td class="text-left">
                         <input type="text" class="form-control" placeholder="http://link.to.card/page" name="pageurl" value="<?php echo $item['pageurl'];?>">

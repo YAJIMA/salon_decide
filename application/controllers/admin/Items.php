@@ -64,6 +64,7 @@ class Items extends CI_Controller {
         if( isset($_POST) && $item_id > 0 )
         {
             $name = $_POST['name'];
+            $officialurl = $_POST['officialurl'];
             $pageurl = $_POST['pageurl'];
             $picurl = $_POST['picurl'];
             $sort = intval($_POST['sort'], 10);
@@ -120,6 +121,7 @@ class Items extends CI_Controller {
 
             $updata = array(
                 'name' => $name,
+                'officialurl' => $officialurl,
                 'pageurl' => $pageurl,
                 'picurl' => $picurl,
                 'card_type' => $card_type,
@@ -159,6 +161,7 @@ class Items extends CI_Controller {
         if(isset($_POST['name'],$_POST['pageurl'],$_POST['picurl']))
         {
             $name = $_POST['name'];
+            $officialurl = $_POST['officialurl'];
             $pageurl = $_POST['pageurl'];
             $picurl = $_POST['picurl'];
             $sort = intval($_POST['sort'], 10);
@@ -215,6 +218,7 @@ class Items extends CI_Controller {
 
             $updata = array(
                 'name' => $name,
+                'officialurl' => $officialurl,
                 'pageurl' => $pageurl,
                 'picurl' => $picurl,
                 'card_type' => $card_type,

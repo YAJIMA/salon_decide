@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <li><a href="mainform.html">お問い合わせ</a></li>
                 <li><a href="about-us.html">運営者情報</a></li>
                 <li><a href="sitemap.html">サイトマップ</a></li>
-                <li><a href="http://www.woshiru.com/cardloan/">カードローン比較まとめ</a></li>
+                <li><a href="https://www.woshiru.com/cardloan/">カードローン比較まとめ</a></li>
             </ul>
             <h3><a href="new/">初めて作る方へ</a></h3>
             <ul>

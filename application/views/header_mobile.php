@@ -20,7 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="/creditcard/assets/templates/washiru_common/css/font-awesome.css">
     <link rel="canonical" href="https://www.woshiru.com/creditcard/search/view" />
     <link rel="stylesheet" href="https://www.woshiru.com/creditcard/assets/templates/washiru_common/css/customize.css" type="text/css">
-    <link rel="stylesheet" href="https://www.woshiru.com/creditcard/assets/templates/washiru_common/css/styles.css" type="text/css">
+    <link rel="stylesheet" href="https://www.woshiru.com/creditcard/assets/templates/washiru_common/css/styles_sp.css" type="text/css">
     <link rel="stylesheet" href="https://www.woshiru.com/creditcard/assets/templates/washiru_common/css/gendogaku.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <!--[if gt IE 6]><!-->
@@ -29,16 +29,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!--[if lt IE 9]>
     <script src="/creditcard/assets/templates/washiru_common/js/html5shiv-printshiv.js"></script>
     <![endif]-->
+    <script>
+        $(function(){
+            $("#menu").css("display","none");
+            $("#button-toggle").on("click", function() {
+                $("#menu").slideToggle();
+            });
+        });
+        $(function(){
+            $("#side_area .side_nav02 nav h2").click(function(){
+                $(this).next("ul").slideToggle();
+                $(this).next("ul").siblings("ul").slideUp();
+                $(this).toggleClass("open");
+                $(this).siblings("h2").removeClass("open");
+            });
+        })
+    </script>
+
+    <script type="text/javascript" src="https://www.woshiru.com/creditcard/assets/templates/washiru_common/js/jquery.meerkat.1.3.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.meerkat').meerkat({
+                //height: '250px',
+                width: '100%',
+                position: 'bottom',
+                close: '.close-meerkat',
+                animationIn: 'slide',
+                animationSpeed: 1000,
+                removeCookie: '.reset',
+                delay: 1
+            }).addClass('pos-bot');
+        });
+    </script>
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-T7VKPG');</script>
     <!-- End Google Tag Manager -->
-
-
-
 </head>
 
 <body>

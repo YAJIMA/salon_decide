@@ -18,6 +18,7 @@ class View extends CI_Controller {
         $this->load->library('session');
         $this->load->model('Item_model');
         $this->load->helper('form');
+        $this->load->library('user_agent');
 
         $this->data['title'] = 'クレジットカード';
         $this->data['nav'] = 'top';
@@ -101,11 +102,21 @@ class View extends CI_Controller {
         $this->data['items'] = $items;
         $this->data['sortparam'] = $sortparam;
 
-        $this->load->view('header', $this->data);
-        $this->load->view('headline', $this->data);
-        $this->load->view('sidemenu', $this->data);
-        $this->load->view('view', $this->data);
-        $this->load->view('footer', $this->data);
+        if ($this->agent->is_mobile())
+        {
+            $this->load->view('header_mobile', $this->data);
+            $this->load->view('headline_mobile', $this->data);
+            $this->load->view('view_mobile', $this->data);
+            $this->load->view('footer_mobile', $this->data);
+        }
+        else
+        {
+            $this->load->view('header', $this->data);
+            $this->load->view('headline', $this->data);
+            $this->load->view('sidemenu', $this->data);
+            $this->load->view('view', $this->data);
+            $this->load->view('footer', $this->data);
+        }
     }
 
     public function filter()

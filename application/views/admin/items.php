@@ -60,6 +60,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     <td><?php echo $item['name']; ?></td>
                                                 </tr>
                                                 <tr>
+                                                    <th style="white-space: nowrap;">アフィリンクURL</th>
+                                                    <td><?php echo $item['officialurl']; ?></td>
+                                                </tr>
+                                                <tr>
                                                     <th style="white-space: nowrap;">URL</th>
                                                     <td><?php echo $item['pageurl']; ?></td>
                                                 </tr>
