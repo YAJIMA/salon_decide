@@ -17,14 +17,18 @@ class User_model extends CI_Model {
     {
         $result = array();
 
-        $sql = "SELECT * FROM `logins` ";
-        $sql .= "WHERE `status` = ".intval($status)." ";
-        if( ! empty($user_id) )
+        $this->db->select("*");
+
+        $this->db->where("status", $status);
+        if ( ! empty($user_id) )
         {
-            $sql .= "AND `id` = ". intval($user_id)." ";
+            $this->db->where("id", $user_id);
         }
-        $sql .= "ORDER BY `id` DESC";
-        $query = $this->db->query($sql);
+
+        $this->db->order_by("id", "DESC");
+
+        $query = $this->db->get("logins");
+
         foreach ($query->result_array() as $row)
         {
             $result[] = $row;
@@ -39,8 +43,13 @@ class User_model extends CI_Model {
         $this->username = $username;
         $this->password = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "SELECT `id`, `password` FROM `logins` WHERE `username` = ? AND `status` = ?";
-        $query = $this->db->query($sql, array($this->db->escape_str($username), 1));
+        $this->db->select("id, password");
+
+        $this->db->where("username", $username);
+        $this->db->where("status", 1);
+
+        $query = $this->db->get("logins");
+
         $row = $query->row();
 
         $verify = FALSE;

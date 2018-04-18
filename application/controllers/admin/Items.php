@@ -15,7 +15,7 @@ class Items extends CI_Controller {
         $this->load->library('session');
         $this->load->model('Item_model');
         $this->load->helper('form');
-        $this->data['title'] = 'カード管理';
+        $this->data['title'] = 'サロン管理';
         $this->data['nav'] = 'items';
 
         if(! isset($_SESSION['login']) OR empty($_SESSION['login']))
@@ -63,79 +63,7 @@ class Items extends CI_Controller {
     {
         if( isset($_POST) && $item_id > 0 )
         {
-            $name = $_POST['name'];
-            $officialurl = $_POST['officialurl'];
-            $pageurl = $_POST['pageurl'];
-            $picurl = $_POST['picurl'];
-            $sort = intval($_POST['sort'], 10);
-            $card_type = $annual_due = $examination = $brand = $pt_reduction_rate = $pt_exchange = $electronic_money = 0;
-            if (isset($_POST['card_type']))
-            {
-                foreach ($_POST['card_type'] as $val)
-                {
-                    $card_type += $val;
-                }
-            }
-            if (isset($_POST['annual_due']))
-            {
-                foreach ($_POST['annual_due'] as $val)
-                {
-                    $annual_due += $val;
-                }
-            }
-            if (isset($_POST['examination']))
-            {
-                foreach ($_POST['examination'] as $val)
-                {
-                    $examination += $val;
-                }
-            }
-            if (isset($_POST['brand']))
-            {
-                foreach ($_POST['brand'] as $val)
-                {
-                    $brand += $val;
-                }
-            }
-            if (isset($_POST['pt_reduction_rate']))
-            {
-                foreach ($_POST['pt_reduction_rate'] as $val)
-                {
-                    $pt_reduction_rate += $val;
-                }
-            }
-            if (isset($_POST['pt_exchange']))
-            {
-                foreach ($_POST['pt_exchange'] as $val)
-                {
-                    $pt_exchange += $val;
-                }
-            }
-            if (isset($_POST['electronic_money']))
-            {
-                foreach ($_POST['electronic_money'] as $val)
-                {
-                    $electronic_money += $val;
-                }
-            }
-
-            $updata = array(
-                'name' => $name,
-                'officialurl' => $officialurl,
-                'pageurl' => $pageurl,
-                'picurl' => $picurl,
-                'card_type' => $card_type,
-                'annual_due' => $annual_due,
-                'examination' => $examination,
-                'brand' => $brand,
-                'pt_reduction_rate' => $pt_reduction_rate,
-                'pt_exchange' => $pt_exchange,
-                'electronic_money' => $electronic_money,
-                'sort' => $sort
-            );
-
-            $this->db->where('id', $item_id);
-            $this->db->update('items', $updata);
+            $this->Item_model->update_item($item_id);
         }
 
         header("Location: ".base_url("admin/items"));exit();
@@ -158,80 +86,9 @@ class Items extends CI_Controller {
 
     public function insert()
     {
-        if(isset($_POST['name'],$_POST['pageurl'],$_POST['picurl']))
+        if(isset($_POST['name']))
         {
-            $name = $_POST['name'];
-            $officialurl = $_POST['officialurl'];
-            $pageurl = $_POST['pageurl'];
-            $picurl = $_POST['picurl'];
-            $sort = intval($_POST['sort'], 10);
-            $card_type = $annual_due = $examination = $brand = $pt_reduction_rate = $pt_exchange = $electronic_money = 0;
-            if (isset($_POST['card_type']))
-            {
-                foreach ($_POST['card_type'] as $val)
-                {
-                    $card_type += $val;
-                }
-            }
-            if (isset($_POST['annual_due']))
-            {
-                foreach ($_POST['annual_due'] as $val)
-                {
-                    $annual_due += $val;
-                }
-            }
-            if (isset($_POST['examination']))
-            {
-                foreach ($_POST['examination'] as $val)
-                {
-                    $examination += $val;
-                }
-            }
-            if (isset($_POST['brand']))
-            {
-                foreach ($_POST['brand'] as $val)
-                {
-                    $brand += $val;
-                }
-            }
-            if (isset($_POST['pt_reduction_rate']))
-            {
-                foreach ($_POST['pt_reduction_rate'] as $val)
-                {
-                    $pt_reduction_rate += $val;
-                }
-            }
-            if (isset($_POST['pt_exchange']))
-            {
-                foreach ($_POST['pt_exchange'] as $val)
-                {
-                    $pt_exchange += $val;
-                }
-            }
-            if (isset($_POST['electronic_money']))
-            {
-                foreach ($_POST['electronic_money'] as $val)
-                {
-                    $electronic_money += $val;
-                }
-            }
-
-            $updata = array(
-                'name' => $name,
-                'officialurl' => $officialurl,
-                'pageurl' => $pageurl,
-                'picurl' => $picurl,
-                'card_type' => $card_type,
-                'annual_due' => $annual_due,
-                'examination' => $examination,
-                'brand' => $brand,
-                'pt_reduction_rate' => $pt_reduction_rate,
-                'pt_exchange' => $pt_exchange,
-                'electronic_money' => $electronic_money,
-                'sort' => $sort
-            );
-
-            $this->db->insert('items', $updata);
+            $this->Item_model->insert_item();
         }
         header("Location: ".base_url("admin/items"));exit();
     }

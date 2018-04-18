@@ -62,13 +62,19 @@ class Item_model extends CI_Model {
         foreach ($query->result_array() as $row)
         {
             // SELECT * FROM `params` WHERE `cols` & 5 != 0 AND `field_name` = 'brand'
-            $row['card_type_values'] = $this->param_view('card_type', $row['card_type']);
-            $row['annual_due_values'] = $this->param_view('annual_due', $row['annual_due']);
-            $row['examination_values'] = $this->param_view('examination', $row['examination']);
-            $row['brand_values'] = $this->param_view('brand', $row['brand']);
-            $row['pt_reduction_rate_values'] = $this->param_view('pt_reduction_rate', $row['pt_reduction_rate']);
-            $row['pt_exchange_values'] = $this->param_view('pt_exchange', $row['pt_exchange']);
-            $row['electronic_money_values'] = $this->param_view('electronic_money', $row['electronic_money']);
+
+            $colnames = array(
+                'prefecture_name',
+                'body_parts',
+                'pr_points',
+                'access',
+                'services',
+                'payments');
+
+            foreach ($colnames as $colname)
+            {
+                $row[$colname.'_values'] = $this->param_view($colname, $row[$colname]);
+            }
 
             $rowdatetime = new DateTime( $row['modified'] );
             $nowdatetime = new DateTime( 'now' );
@@ -168,6 +174,125 @@ class Item_model extends CI_Model {
             {
                 return TRUE;
             }
+        }
+    }
+
+    public function insert_item()
+    {
+        $data = array();
+
+        $data['name'] = $_POST['name'];
+        $data['kana'] = $_POST['kana'];
+        $data['picurl_pc'] = $_POST['picurl_pc'];
+        $data['picurl_sp'] = $_POST['picurl_sp'];
+        $data['comment_pc'] = $_POST['comment_pc'];
+        $data['comment_sp'] = $_POST['comment_sp'];
+        $data['follow_pt'] = $_POST['follow_pt'];
+        $data['price_text_pc'] = $_POST['price_text_pc'];
+        $data['price_text_sp'] = $_POST['price_text_sp'];
+        $data['shops'] = $_POST['shops'];
+        $data['price_text'] = $_POST['price_text'];
+        $data['officialurl'] = $_POST['officialurl'];
+        $data['officialurl_text'] = $_POST['officialurl_text'];
+        $data['pageurl'] = $_POST['pageurl'];
+        $data['pageurl_text'] = $_POST['pageurl_text'];
+        $data['sort'] = $_POST['sort'];
+
+        // 口コミの★
+        if ($_POST['follow_stars'] == "etc")
+        {
+            $data['follow_stars'] = $_POST['follow_stars_url'];
+        }
+        else
+        {
+            $data['follow_stars'] = $_POST['follow_stars'];
+        }
+
+        $colnames = array(
+            'prefecture_name',
+            'body_parts',
+            'pr_points',
+            'access',
+            'services',
+            'payments');
+        foreach ($colnames as $colname) {
+            if ( isset($_POST[$colname]) )
+            {
+                $data[$colname] = 0;
+                foreach ($_POST[$colname] as $val)
+                {
+                    $data[$colname] += $val;
+                }
+            }
+        }
+
+        if ( ! $this->db->insert('items', $data) )
+        {
+            return $this->db->error();
+        }
+        else
+        {
+            return TRUE;
+        }
+    }
+
+    public function update_item($item_id = 0)
+    {
+        $data = array();
+
+        $data['name'] = $_POST['name'];
+        $data['kana'] = $_POST['kana'];
+        $data['picurl_pc'] = $_POST['picurl_pc'];
+        $data['picurl_sp'] = $_POST['picurl_sp'];
+        $data['comment_pc'] = $_POST['comment_pc'];
+        $data['comment_sp'] = $_POST['comment_sp'];
+        $data['follow_pt'] = $_POST['follow_pt'];
+        $data['price_pt'] = $_POST['price_pt'];
+        $data['price_text_pc'] = $_POST['price_text_pc'];
+        $data['price_text_sp'] = $_POST['price_text_sp'];
+        $data['shops'] = $_POST['shops'];
+        $data['officialurl'] = $_POST['officialurl'];
+        $data['officialurl_text'] = $_POST['officialurl_text'];
+        $data['pageurl'] = $_POST['pageurl'];
+        $data['pageurl_text'] = $_POST['pageurl_text'];
+        $data['sort'] = $_POST['sort'];
+
+        // 口コミの★
+        if ($_POST['follow_stars'] == "etc")
+        {
+            $data['follow_stars'] = $_POST['follow_stars_url'];
+        }
+        else
+        {
+            $data['follow_stars'] = $_POST['follow_stars'];
+        }
+
+        $colnames = array(
+            'prefecture_name',
+            'body_parts',
+            'pr_points',
+            'access',
+            'services',
+            'payments');
+        foreach ($colnames as $colname) {
+            if ( isset($_POST[$colname]) )
+            {
+                $data[$colname] = 0;
+                foreach ($_POST[$colname] as $val)
+                {
+                    $data[$colname] += $val;
+                }
+            }
+        }
+
+        $this->db->where('id', $item_id);
+        if ( ! $this->db->update('items', $data) )
+        {
+            return $this->db->error();
+        }
+        else
+        {
+            return TRUE;
         }
     }
 

@@ -15,7 +15,7 @@ class Form extends CI_Controller {
         $this->load->model('Item_model');
         $this->load->helper('form');
 
-        $this->data['title'] = 'クレジットカード';
+        $this->data['title'] = '脱毛サロン';
         $this->data['nav'] = 'index';
 
         $this->params =  $this->Item_model->param_tree();

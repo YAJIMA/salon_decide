@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <ul class="nav nav-sidebar">
                     <li <?php if ($nav === 'top'): ?>class="active"<?php endif; ?>><a href="<?php echo base_url("admin/top");?>">管理トップ
                             <?php if ($nav === 'top'): ?><span class="sr-only">(*)</span><?php endif; ?></a></li>
-                    <li <?php if ($nav === 'items'): ?>class="active"<?php endif; ?>><a href="<?php echo base_url("admin/items");?>">カード管理
+                    <li <?php if ($nav === 'items'): ?>class="active"<?php endif; ?>><a href="<?php echo base_url("admin/items");?>">サロン一覧
                             <?php if ($nav === 'items'): ?><span class="sr-only">(*)</span><?php endif; ?></a></li>
                 </ul>
                 <ul class="nav nav-sidebar">
