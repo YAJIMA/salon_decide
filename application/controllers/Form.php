@@ -36,4 +36,22 @@ class Form extends CI_Controller {
         $this->load->view('form', $this->data);
         $this->load->view('footer', $this->data);
 	}
+
+	public function api($output = 'json')
+    {
+        // パラメータ
+        $this->data['params'] = $this->params;
+
+        switch ($output)
+        {
+            case "json":
+                ob_clean();
+                echo json_encode($this->params);
+                break;
+            case "html":
+            default:
+                $this->load->view('api_html', $this->data);
+                break;
+        }
+    }
 }
