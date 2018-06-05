@@ -47,7 +47,10 @@ class Item_model extends CI_Model {
         {
             foreach ($param as $val)
             {
-                $this->db->where($val, NULL, FALSE );
+                if ($val > 0)
+                {
+                    $this->db->where($val, NULL, FALSE );
+                }
             }
             unset($key,$val);
         }
@@ -181,31 +184,31 @@ class Item_model extends CI_Model {
     {
         $data = array();
 
-        $data['name'] = $_POST['name'];
-        $data['kana'] = $_POST['kana'];
-        $data['picurl_pc'] = $_POST['picurl_pc'];
-        $data['picurl_sp'] = $_POST['picurl_sp'];
-        $data['comment_pc'] = $_POST['comment_pc'];
-        $data['comment_sp'] = $_POST['comment_sp'];
-        $data['follow_pt'] = $_POST['follow_pt'];
-        $data['price_text_pc'] = $_POST['price_text_pc'];
-        $data['price_text_sp'] = $_POST['price_text_sp'];
-        $data['shops'] = $_POST['shops'];
-        $data['price_text'] = $_POST['price_text'];
-        $data['officialurl'] = $_POST['officialurl'];
-        $data['officialurl_text'] = $_POST['officialurl_text'];
-        $data['pageurl'] = $_POST['pageurl'];
-        $data['pageurl_text'] = $_POST['pageurl_text'];
-        $data['sort'] = $_POST['sort'];
+        $data['name'] = $this->input->post('name');
+        $data['kana'] = $this->input->post('kana');
+        $data['picurl_pc'] = $this->input->post('picurl_pc');
+        $data['picurl_sp'] = $this->input->post('picurl_sp');
+        $data['comment_pc'] = $this->input->post('comment_pc');
+        $data['comment_sp'] = $this->input->post('comment_sp');
+        $data['follow_pt'] = $this->input->post('follow_pt');
+        $data['price_pt'] = $this->input->post('price_pt');
+        $data['price_text_pc'] = $this->input->post('price_text_pc');
+        $data['price_text_sp'] = $this->input->post('price_text_sp');
+        $data['shops'] = $this->input->post('shops');
+        $data['officialurl'] = $this->input->post('officialurl');
+        $data['officialurl_text'] = $this->input->post('officialurl_text');
+        $data['pageurl'] = $this->input->post('pageurl');
+        $data['pageurl_text'] = $this->input->post('pageurl_text');
+        $data['sort'] = $this->input->post('sort');
 
         // 口コミの★
         if ($_POST['follow_stars'] == "etc")
         {
-            $data['follow_stars'] = $_POST['follow_stars_url'];
+            $data['follow_stars'] = $this->input->post('follow_stars_url');
         }
         else
         {
-            $data['follow_stars'] = $_POST['follow_stars'];
+            $data['follow_stars'] = $this->input->post('follow_stars');
         }
 
         $colnames = array(
@@ -240,22 +243,22 @@ class Item_model extends CI_Model {
     {
         $data = array();
 
-        $data['name'] = $_POST['name'];
-        $data['kana'] = $_POST['kana'];
-        $data['picurl_pc'] = $_POST['picurl_pc'];
-        $data['picurl_sp'] = $_POST['picurl_sp'];
-        $data['comment_pc'] = $_POST['comment_pc'];
-        $data['comment_sp'] = $_POST['comment_sp'];
-        $data['follow_pt'] = $_POST['follow_pt'];
-        $data['price_pt'] = $_POST['price_pt'];
-        $data['price_text_pc'] = $_POST['price_text_pc'];
-        $data['price_text_sp'] = $_POST['price_text_sp'];
-        $data['shops'] = $_POST['shops'];
-        $data['officialurl'] = $_POST['officialurl'];
-        $data['officialurl_text'] = $_POST['officialurl_text'];
-        $data['pageurl'] = $_POST['pageurl'];
-        $data['pageurl_text'] = $_POST['pageurl_text'];
-        $data['sort'] = $_POST['sort'];
+        $data['name'] = $this->input->post('name');
+        $data['kana'] = $this->input->post('kana');
+        $data['picurl_pc'] = $this->input->post('picurl_pc');
+        $data['picurl_sp'] = $this->input->post('picurl_sp');
+        $data['comment_pc'] = $this->input->post('comment_pc');
+        $data['comment_sp'] = $this->input->post('comment_sp');
+        $data['follow_pt'] = $this->input->post('follow_pt');
+        $data['price_pt'] = $this->input->post('price_pt');
+        $data['price_text_pc'] = $this->input->post('price_text_pc');
+        $data['price_text_sp'] = $this->input->post('price_text_sp');
+        $data['shops'] = $this->input->post('shops');
+        $data['officialurl'] = $this->input->post('officialurl');
+        $data['officialurl_text'] = $this->input->post('officialurl_text');
+        $data['pageurl'] = $this->input->post('pageurl');
+        $data['pageurl_text'] = $this->input->post('pageurl_text');
+        $data['sort'] = $this->input->post('sort');
 
         // 口コミの★
         if ($_POST['follow_stars'] == "etc")

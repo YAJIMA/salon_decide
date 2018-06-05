@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>サロン名／画像
+            <th>サロン名
                 <a href="<?php echo base_url('view').'?kana=asc'; ?>" ><span class="glyphicon glyphicon-sort-by-attributes <?php if ($sortparam === 'kana=asc') : echo 'text-danger'; endif;?>"></span></a>
                 <a href="<?php echo base_url('view').'?kana=desc'; ?>" ><span class="glyphicon glyphicon-sort-by-attributes-alt <?php if ($sortparam === 'kana=desc') : echo 'text-danger'; endif;?>"></span></a></th>
             <th>

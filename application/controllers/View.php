@@ -23,7 +23,7 @@ class View extends CI_Controller {
         $this->data['title'] = '脱毛サロン';
         $this->data['nav'] = 'top';
 
-        $this->params =  $this->Item_model->param_tree();
+        $this->params = $this->Item_model->param_tree();
         $this->extend_params = $this->Item_model->extend_params();
     }
     
@@ -126,18 +126,15 @@ class View extends CI_Controller {
 
         if ($this->agent->is_mobile())
         {
-            $this->load->view('header_mobile', $this->data);
-            $this->load->view('headline_mobile', $this->data);
-            $this->load->view('view_mobile', $this->data);
-            $this->load->view('footer_mobile', $this->data);
+            $this->load->view('header_lp', $this->data);
+            $this->load->view('view_lp_mobile', $this->data);
+            $this->load->view('footer_lp', $this->data);
         }
         else
         {
-            $this->load->view('header', $this->data);
-            $this->load->view('headline', $this->data);
-            $this->load->view('sidemenu', $this->data);
-            $this->load->view('view', $this->data);
-            $this->load->view('footer', $this->data);
+            $this->load->view('header_lp', $this->data);
+            $this->load->view('view_lp', $this->data);
+            $this->load->view('footer_lp', $this->data);
         }
     }
 
@@ -161,7 +158,7 @@ class View extends CI_Controller {
                         }
                         $param[$col] = ${$col};
                     }
-                    else
+                    elseif ($_POST[$col] > 0)
                     {
                         $param[$col] = $_POST[$col];
                     }
